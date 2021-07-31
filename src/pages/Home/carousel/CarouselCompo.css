@@ -1,0 +1,11 @@
+.iconCarousel{
+    font-size:80px;
+    color:white;
+    opacity:0.3;
+    cursor:pointer;
+    transition: font-size 0.5s;
+}
+.iconCarousel:hover{
+    opacity: 0.9;
+    font-size: 90px;
+}
