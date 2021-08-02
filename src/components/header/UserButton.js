@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, { Suspense } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import { Menu, Dropdown } from "antd";
+import { Menu, Dropdown, Select } from "antd";
 import {
   USER_ACCESS_TOKEN,
   USER_INFO,
 } from "../../utils/constants/settingSystem";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from "react-i18next";
+import { CHANGE_LOCALE } from "../../redux/constants/totalConstants";
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -14,42 +17,61 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
+const { Option } = Select;
 
-export default class UserButton extends Component {
-  render() {
-    const menu = (
-      <Menu>
-        <Menu.Item className="bg-white hover:bg-gray-400">
-          <Link className="text-black " onClick={scrollToTop} to="/TaiKhoan">
-            Tài khoản
-          </Link>
-        </Menu.Item>
+function MyComponent(props) {
+  const { t, i18n } = useTranslation();
+  const value = useSelector((state) => state.localeReducer.value);
+  const dispatch  = useDispatch();
+  const handleChange = async(value) => {
+    await i18n.changeLanguage(value);
+    await dispatch({
+      type:CHANGE_LOCALE,
+      payload:{
+        value:value
+      }
+    })
+  };
+  const menu = (
+    <Menu>
+      <Menu.Item className="bg-white hover:bg-gray-400">
+        <Link className="text-black " onClick={scrollToTop} to="/TaiKhoan">
+        {t("Account Info")}
+        </Link>
+      </Menu.Item>
+      {JSON.parse(localStorage.getItem(USER_INFO))?.maLoaiNguoiDung ===
+      "QuanTri" ? (
         <Menu.Item className="bg-white hover:bg-gray-400">
           <Link
             className="text-black "
             onClick={scrollToTop}
             to="/QuanTri/DashBoard"
           >
-            Quản trị
+            {t("Administrator")}
           </Link>
         </Menu.Item>
-        <Menu.Item className="bg-white hover:bg-gray-400">
-          <Link
-            className=" text-black "
-            onClick={scrollToTop}
-            to="/"
-            onClick={() => {
-              localStorage.clear();
-            }}
-          >
-            Đăng xuất
-          </Link>
-        </Menu.Item>
-      </Menu>
-    );
-    return (
-      <div>
-        {localStorage.getItem(USER_ACCESS_TOKEN) ? (
+      ) : (
+        <></>
+      )}
+
+      <Menu.Item className="bg-white hover:bg-gray-400">
+        <Link
+          className=" text-black "
+          onClick={scrollToTop}
+          to="/"
+          onClick={() => {
+            localStorage.clear();
+          }}
+        >
+          {t("Sign out")}
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
+  return (
+    <div>
+      {localStorage.getItem(USER_ACCESS_TOKEN) ? (
+        <div className="inline-block mr-3">
           <Dropdown overlay={menu} placement="bottomCenter">
             <div className="flex items-center">
               <div className="inline-block border-2 rounded-full p-1 border-gray-500 mr-2 h-9 flex items-center">
@@ -60,16 +82,32 @@ export default class UserButton extends Component {
               </p>
             </div>
           </Dropdown>
-        ) : (
-          <Link
-            className="text-gray-500 font-bold cursor-pointer hover:text-gray-600 m-0 text-sm inline-block"
-            to="/Login"
-            onClick={scrollToTop}
-          >
-            Đăng nhập
-          </Link>
-        )}
+        </div>
+      ) : (
+        <Link
+          className="text-gray-500 font-bold cursor-pointer hover:text-gray-600 m-0 text-sm inline-block mr-3"
+          to="/Login"
+          onClick={scrollToTop}
+        >
+          {`${t("Sign in")}/${t("Register")}`}
+        </Link>
+      )}
+      <div className="inline-block">
+      <Select value={value} style={{ width: 100 }} onChange={handleChange}>
+        <Option value="en">English</Option>
+        <Option value="vi">Tiếng việt</Option>
+        <Option value="chi">中国人</Option>
+      </Select>
       </div>
-    );
-  }
+      
+    </div>
+  );
+}
+
+export default function UserButton() {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent />
+    </Suspense>
+  );
 }

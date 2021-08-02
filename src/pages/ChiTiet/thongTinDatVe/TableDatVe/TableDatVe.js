@@ -1,9 +1,10 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import { LAY_THONG_TIN_HE_THONG_RAP_SAGA } from "../../../../redux/constants/totalConstants";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import {Spin} from 'antd'
+import { Translation } from "react-i18next";
 
 const timeDefault="2019-01-01"
 
@@ -11,7 +12,7 @@ const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-class TableDatVe extends Component {
+class MyComponent extends Component {
   state = {
     pickedIndex: 0,
     timeSet: timeDefault,
@@ -78,14 +79,14 @@ class TableDatVe extends Component {
             <th className="w-8/12 p-3">
               <div>
                 <h1 className="text-2xl m-0 font-normal">{item?.tenCumRap}</h1>
-                <h1 className="text-lg m-0 font-light truncate">Địa chỉ: {item?.diaChi}</h1>
+                <h1 className="text-lg m-0 font-light truncate"><Translation>{(t) => <>{t("Address")}</>}</Translation>: {item?.diaChi}</h1>
                 <p className="text-sm m-0 text-green-500 font-light">
-                  Thời lượng: {item?.thoiLuong}
+                  <Translation>{(t) => <>{t("Length")}</>}</Translation>: {item?.thoiLuong}
                 </p>
                 <div className="">
                   {item?.ngayGioChieu.map((item2, index2) => {
                     return (
-                      <Link to={`/DatVe/${item?.maLichChieu}`} onClick={()=>{scrollToTop()}}>
+                      <Link to={`/DatVe/${item?.maLichChieu}`} onClick={()=>{scrollToTop()}} key={index2}>
                         <div
                           className="px-3 py-2 border border-solid m-2"
                           style={{ display: "inline-block" }}
@@ -131,7 +132,9 @@ class TableDatVe extends Component {
               : {}
           }
         >
-          <h1 className="text-xl m-0">{item.format("dddd")}</h1>
+          <h1 className="text-xl m-0">
+            <Translation>{(t) => <>{t(item.format("dddd"))}</>}</Translation>
+          </h1>
           <p className="text-lg m-0 font-light">{item.format("DD-MM")}</p>
         </div>
       );
@@ -189,6 +192,15 @@ class TableDatVe extends Component {
     );
   }
 }
+
+function TableDatVe(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props}/>
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     listHeThongRap: state.thongTinHeThongRapReducer.listHeThongRap,

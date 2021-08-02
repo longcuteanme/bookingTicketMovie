@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import ConfigTable from "../../../components/table/ConfigTable";
 import { connect } from "react-redux";
 import {
@@ -20,8 +20,9 @@ import TextArea from "antd/lib/input/TextArea";
 import Modal from "antd/lib/modal/Modal";
 import LoadingBackground from "../../../assets/images/LoadingBackground.jpg";
 import ModalTaoLichChieu from "./ModalTaoLichChieu";
+import { Translation } from "react-i18next";
 
-const editMessage = ["Thêm phim", "Chỉnh sửa thông tin"];
+const editMessage = [<Translation>{(t) => <>{t("Add Film")}</>}</Translation>, <Translation>{(t) => <>{t("Edit Film")}</>}</Translation>];
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -32,7 +33,7 @@ function getBase64(file) {
   });
 }
 
-class DanhSachPhim extends Component {
+class MyComponent extends Component {
   state = {
     previewVisible: false,
     previewImage: "",
@@ -196,12 +197,12 @@ class DanhSachPhim extends Component {
     const uploadButton = (
       <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>Upload</div>
+        <div style={{ marginTop: 8 }}>{<Translation>{(t) => <>{t("Upload")}</>}</Translation>}</div>
       </div>
     );
     const columns = [
       {
-        title: "Tạo lịch chiếu",
+        title: <Translation>{(t) => <>{t("Create showtime")}</>}</Translation>,
         width: "100px",
         align: "center",
         fixed: "left",
@@ -218,7 +219,7 @@ class DanhSachPhim extends Component {
         },
       },
       {
-        title: "Tên phim",
+        title: <Translation>{(t) => <>{t("Movie's name")}</>}</Translation>,
         width: "100px",
         align: "center",
         fixed: "left",
@@ -232,7 +233,7 @@ class DanhSachPhim extends Component {
         },
       },
       {
-        title: "Hình ảnh",
+        title: <Translation>{(t) => <>{t("Image")}</>}</Translation>,
         dataIndex: "hinhAnh",
         width: "120px",
         align: "center",
@@ -254,13 +255,13 @@ class DanhSachPhim extends Component {
         },
       },
       {
-        title: "Bí danh",
+        title: <Translation>{(t) => <>{t("Aliases")}</>}</Translation>,
         dataIndex: "biDanh",
         width: "100px",
         align: "center",
       },
       {
-        title: "Trailer",
+        title: <Translation>{(t) => <>{t("Trailer")}</>}</Translation>,
         dataIndex: "trailer",
         width: "80px",
         align: "center",
@@ -276,17 +277,17 @@ class DanhSachPhim extends Component {
         },
       },
       {
-        title: "Trạng thái",
+        title: <Translation>{(t) => <>{t("Status")}</>}</Translation>,
         dataIndex: "dangChieu",
         width: "150px",
         align: "center",
         render: (item) => {
-          if (item) return <Tag color="#2db7f5">ĐANG CHIẾU</Tag>;
-          else return <Tag color="#f50">SẮP CHIẾU</Tag>;
+          if (item) return <Tag color="#2db7f5"><Translation>{(t) => <>{t("NOW SHOWING")}</>}</Translation></Tag>;
+          else return <Tag color="#f50"><Translation>{(t) => <>{t("COMING SOON")}</>}</Translation></Tag>;
         },
       },
       {
-        title: "Ngày khởi chiếu",
+        title: <Translation>{(t) => <>{t("Show date")}</>}</Translation>,
         dataIndex: "ngayKhoiChieu",
         width: "150px",
         align: "center",
@@ -295,13 +296,13 @@ class DanhSachPhim extends Component {
         },
       },
       {
-        title: "Mô tả",
+        title: <Translation>{(t) => <>{t("Description")}</>}</Translation>,
         dataIndex: "moTa",
         width: "500px",
-        align: "left",
+        align: "center",
       },
       {
-        title: "Đánh giá",
+        title: <Translation>{(t) => <>{t("Evaluate")}</>}</Translation>,
         dataIndex: "danhGia",
         width: "200px",
         align: "center",
@@ -316,7 +317,7 @@ class DanhSachPhim extends Component {
           name="tenPhim"
           rules={[...rules.required, ...rules.text, ...rules.length(50)]}
           initialValue=""
-          label="Tên phim"
+          label={<Translation>{(t) => <>{t("Movie's name")}</>}</Translation>}
           style={{
             display: "inline-block",
             width: "calc(50% - 8px)",
@@ -328,7 +329,7 @@ class DanhSachPhim extends Component {
         <Form.Item
           name="trailer"
           rules={[...rules.required, ...rules.text, ...rules.length(300)]}
-          label="Trailer"
+          label={<Translation>{(t) => <>{t("Trailer")}</>}</Translation>}
           style={{
             display: "inline-block",
             width: "calc(50% - 8px)",
@@ -340,7 +341,7 @@ class DanhSachPhim extends Component {
 
         <Form.Item
           name="hinhAnh"
-          label=" Hình ảnh đại diện"
+          label={<Translation>{(t) => <>{t("Movie's Image")}</>}</Translation>}
           style={{
             display: "inline-block",
           }}
@@ -366,7 +367,7 @@ class DanhSachPhim extends Component {
             display: "inline-block",
             width: "calc(100% - 8px)",
           }}
-          label="Mô tả"
+          label={<Translation>{(t) => <>{t("Description")}</>}</Translation>}
         >
           <TextArea type="text" rows={4} />
         </Form.Item>
@@ -374,7 +375,7 @@ class DanhSachPhim extends Component {
           <Form.Item
             name="ngayKhoiChieu"
             rules={[...rules.required]}
-            label="Ngày khởi chiếu"
+            label={<Translation>{(t) => <>{t("Show date")}</>}</Translation>}
             style={{
               display: "inline-block",
             }}
@@ -383,7 +384,7 @@ class DanhSachPhim extends Component {
           </Form.Item>
           <Form.Item
             name="dangChieu"
-            label="Đang chiếu"
+            label={<Translation>{(t) => <>{t("Now showing")}</>}</Translation>}
             valuePropName="checked"
             style={{
               display: "inline-block",
@@ -405,7 +406,7 @@ class DanhSachPhim extends Component {
           </Form.Item>
           <Form.Item
             name="danhGia"
-            label="Đánh giá"
+            label={<Translation>{(t) => <>{t("Evaluate")}</>}</Translation>}
             style={{
               display: "inline-block",
               width: "calc(35% - 8px)",
@@ -432,14 +433,13 @@ class DanhSachPhim extends Component {
           hideModal={this.hideModal}
         />
         <ConfigTable
-          title="DANH SÁCH PHIM"
+          title={<Translation>{(t) => <>{t("LIST FILMS")}</>}</Translation>}
           columns={columns}
           dataSource={data?.items}
           paginationProps={paginationProps}
           pagination={this.state.pagination}
           layDuLieu={this.layDuLieu}
           formAdd={formAdd}
-          drawerTitle="Thêm Phim"
           xoaNguoiDung={this.xoaNguoiDung}
           truongXoa="maPhim"
           suaThongTin={this.suaThongTin}
@@ -454,6 +454,15 @@ class DanhSachPhim extends Component {
     );
   }
 }
+
+function DanhSachPhim(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     danhSachPhimQuanTri: state.quanTriPhimReducer?.danhSachPhimQuanTri,

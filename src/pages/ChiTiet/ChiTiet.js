@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import ThongTinDatVe from "./thongTinDatVe/ThongTinDatVe";
 import {
   LAY_THONG_TIN_LICH_CHIEU_PHIM_SAGA,
@@ -8,9 +8,10 @@ import { connect } from "react-redux";
 import { Tag, Rate, Button } from "antd";
 import moment from "moment";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import { Translation } from "react-i18next";
 
 
-class ChiTiet extends Component {
+class MyComponent extends Component {
   state = {
     hienPhanDatve: false,
   };
@@ -67,16 +68,16 @@ class ChiTiet extends Component {
               {data?.tenPhim ? data?.tenPhim : "Tên phim (do dữ liệu bị hỏng)"}
             </h1>
             <p className="text-white font-normal m-0 text-lg text-green-500">
-              120 phút - {data?.danhGia} IMDb - 2D/Digital
+              120 <Translation>{(t) => <>{t("Minutes")}</>}</Translation> - {data?.danhGia} IMDb - 2D/Digital
             </p>
             <div className="m-2">
               {data?.dangChieu ? (
                 <Button type="primary" danger size="large">
-                  <span className="font-bold">ĐẶT VÉ</span>
+                  <span className="font-bold"><Translation>{(t) => <>{t("Buy Ticket")}</>}</Translation></span>
                 </Button>
               ) : (
                 <Button type="primary" size="large">
-                  <span className="font-bold">SẮP CÔNG CHIẾU</span>
+                  <span className="font-bold"><Translation>{(t) => <>{t("Coming soon")}</>}</Translation></span>
                 </Button>
               )}
             </div>
@@ -109,7 +110,6 @@ class ChiTiet extends Component {
   };
   render() {
     const data = this.props?.thongTinChiTietPhim;
-    console.log(data);
     return (
       <div className="h-auto min-h-screen w-screen bg-top bg-contain" style={{ backgroundImage: `url(${data?.hinhAnh})`}}>
       <div className="h-auto bg-gray-900 py-28 bg-opacity-95">
@@ -124,6 +124,15 @@ class ChiTiet extends Component {
     );
   }
 }
+
+function ChiTiet(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props}/>
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     thongTinChiTietPhim: state.thongTinPhimReducer.thongTinChiTietPhim,

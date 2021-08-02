@@ -15,6 +15,7 @@ import quanTriNguoiDungReducer from './reducer/quanTriNguoiDungReducer'
 import quanTriPhimReducer from './reducer/quanTriPhimReducer'
 import loadingTableQuanTriReducer from './reducer/loadingTableQuanTriReducer'
 import loadingTablePhimReducer from './reducer/loadingTablePhimReducer'
+import localeReducer from './reducer/localeReducer'
 import {sagaRoot} from './saga/sagaRoot'
 
 const rootReducer=combineReducers({
@@ -34,6 +35,7 @@ const rootReducer=combineReducers({
     loadingTableQuanTriReducer,
     loadingTablePhimReducer,
     modalReducer,
+    localeReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware()

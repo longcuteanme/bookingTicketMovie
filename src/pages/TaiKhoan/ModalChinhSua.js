@@ -43,8 +43,8 @@ class ModalChinhSua extends Component {
         footer={null}
       >
         <Form
-          name="normal_login"
-          className="login-form"
+          name="normal_update"
+          className="update-form"
           initialValues={{
             hoTen: info?.hoTen,
             email: info?.email,
@@ -142,8 +142,4 @@ class ModalChinhSua extends Component {
     );
   }
 }
-export default connect((state)=>{
-    return {
-
-    }
-})(ModalChinhSua)
+export default connect()(ModalChinhSua)

@@ -12,7 +12,6 @@ export default (state=initialState,action)=>{
             let newState=state
             newState.listDanhSachLichChieuTheoHeThong=action.payload.listDanhSachLichChieuTheoHeThong
             newState.pickedIndex=0;
-            console.log('newState',newState)
             return {...newState}
         }
 

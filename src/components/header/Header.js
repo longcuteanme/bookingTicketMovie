@@ -1,31 +1,34 @@
-import React, { Component } from "react";
+import React, { Suspense } from "react";
 import logo from "../../assets/images/logo.png";
 import "./Header.css";
 import { Link } from "react-router-dom";
 import UserButton from "./UserButton";
+import { useTranslation } from "react-i18next";
+
 
 const scrollToTop = () => {
   window.scrollTo({
-    top:0,
-    left:0,
-    behavior: 'smooth'
+    top: 0,
+    left: 0,
+    behavior: "smooth",
   });
 };
 
-export default class Header extends Component {
-  render() {
-    return (
-      <header
-        className="h-20 w-screen bg-white bg-opacity-95 fixed top-0 shadow-lg text-black text-center hover:bg-opacity-100"
-        style={{ zIndex: "100" }}
-      >
-        <div className="flex justify-between content-center h-full w-full items-center">
-          <div className="mx-12 h-4/5">
+function MyComponent() {
+  const { t, i18n } = useTranslation();
+  return (
+    <header
+      className="h-20 w-screen bg-white bg-opacity-95 fixed top-0 shadow-lg text-black text-center hover:bg-opacity-100"
+      style={{ zIndex: "100" }}
+    >
+      <table className="h-full w-full table-fixed">
+        <tr>
+          <th className="w-3/12">
             <Link onClick={scrollToTop} to="/">
-              <img className="w-20" src={logo} alt="logo"></img>
+              <img className="w-20 inline-block" src={logo} alt="logo"></img>
             </Link>
-          </div>
-          <div className="">
+          </th>
+          <th className="w-6/12">
             <ul className="ulHeader">
               <li>
                 <Link
@@ -33,7 +36,7 @@ export default class Header extends Component {
                   onClick={scrollToTop}
                   to="/"
                 >
-                  Home
+                  {t("Home")}
                 </Link>
               </li>
               <li className="text-gray-900 hover:text-red-500">
@@ -47,7 +50,7 @@ export default class Header extends Component {
                     });
                   }}
                 >
-                  List phim
+                  {t("List Film")}
                 </Link>
               </li>
               <li className="text-gray-900 hover:text-red-500">
@@ -61,24 +64,29 @@ export default class Header extends Component {
                     });
                   }}
                 >
-                  Hệ thống rạp
+                  {t("Theater System")}
                 </Link>
               </li>
               <li className="text-gray-900 hover:text-red-500">
-                <a
-                  className="text-gray-900 hover:text-red-500"
-                  href="#footer"
-                >
-                  Liên hệ
+                <a className="text-gray-900 hover:text-red-500" href="#footer">
+                  {t("Contact")}
                 </a>
               </li>
             </ul>
-          </div>
-          <div className="mx-12 ">
-            <UserButton/>
-          </div>
-        </div>
-      </header>
-    );
-  }
+          </th>
+          <th className="w-3/12">
+            <UserButton />
+          </th>
+        </tr>
+      </table>
+    </header>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent />
+    </Suspense>
+  );
 }

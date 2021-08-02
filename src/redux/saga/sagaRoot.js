@@ -19,6 +19,7 @@ export function * sagaRoot(){
         QUANLYRAPSAGA.sagaLayThongTinLichChieuHeThongRap(),
         QUANLYRAPSAGA.sagaLayThongTinLichChieuPhim(),
         QUANLYNGUOIDUNGSAGA.sagaDangNhap(),
+        QUANLYNGUOIDUNGSAGA.sagaDangKy(),
         QUANLYNGUOIDUNGSAGA.sagaThongTinTaiKhoan(),
         QUANLYNGUOIDUNGSAGA.sagaCapNhatThongTinNguoiDung(),
         QUANLYNGUOIDUNGSAGA.sagaLayDanhSachNguoiDungPhanTrang(),

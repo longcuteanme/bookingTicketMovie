@@ -14,11 +14,11 @@ import {
 const data = [
   {
     type: "Khách hàng",
-    value: 20
+    value: 370
   },
   {
     type: "Quản trị viên",
-    value: 18
+    value: 28
   },
 ]; // 可以通过调整这个数值控制分割空白处的间距，0-1 之间的数值
 

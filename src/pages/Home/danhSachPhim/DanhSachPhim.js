@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import PhimItem from "./PhimItem/PhimItem";
 import { connect } from "react-redux";
 import { Carousel } from "antd";
@@ -6,8 +6,9 @@ import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import _ from "lodash";
 import "./DanhSachPhim.css";
 import { LAY_DANH_SACH_PHIM_SAGA } from "../../../redux/constants/totalConstants";
+import { Translation } from "react-i18next";
 
-class DanhSachPhim extends Component {
+class MyComponent extends Component {
   constructor(props) {
     super(props);
     this.next = this.next.bind(this);
@@ -22,13 +23,13 @@ class DanhSachPhim extends Component {
       choiceActive: a,
     });
   };
-  renderPhim = (arr,index) => {
+  renderPhim = (arr, index) => {
     return arr.map((item2, index2) => {
       return (
         <div key={`${index}-${index2}`}>
-          <PhimItem item={item2}/>
+          <PhimItem item={item2} />
         </div>
-      )
+      );
     });
   };
   renderSliderPhim = (arr) => {
@@ -37,7 +38,7 @@ class DanhSachPhim extends Component {
       return (
         <div>
           <div className="w-full h-full grid grid-cols-4 gap-5" key={index1}>
-            {this.renderPhim(item1,index1)}
+            {this.renderPhim(item1, index1)}
           </div>
         </div>
       );
@@ -55,9 +56,10 @@ class DanhSachPhim extends Component {
     });
   };
   render() {
-    const data=this.props.danhSachPhim
+    const data = this.props.danhSachPhim;
 
-    let dangChieu = [],sapChieu = [];
+    let dangChieu = [],
+      sapChieu = [];
 
     for (const key of data) {
       if (key.dangChieu) {
@@ -87,7 +89,7 @@ class DanhSachPhim extends Component {
               this.changeChoice(true);
             }}
           >
-            Đang chiếu
+            <Translation>{(t) => <>{t("Now showing")}</>}</Translation>
           </h1>
           <h1
             className="DanhSachPhimChoice"
@@ -96,7 +98,7 @@ class DanhSachPhim extends Component {
               this.changeChoice(false);
             }}
           >
-            Sắp chiếu
+            <Translation>{(t) => <>{t("Coming soon")}</>}</Translation>
           </h1>
         </div>
         <div className="flex justify-between flex-row h-auto mt-8">
@@ -132,6 +134,14 @@ class DanhSachPhim extends Component {
       </>
     );
   }
+}
+
+function DanhSachPhim(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props}/>
+    </Suspense>
+  );
 }
 
 export default connect((state) => {

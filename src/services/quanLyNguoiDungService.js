@@ -9,6 +9,10 @@ class quanLyNguoiDungService extends baseService{
         return this.post(`${QUAN_LY_NGUOI_DUNG}DangNhap`,model)
     }
 
+    dangKy=(model)=>{
+        return this.post(`${QUAN_LY_NGUOI_DUNG}DangKy`,model)
+    }
+
     thongTinTaiKhoan=()=>{
         return this.post(`${QUAN_LY_NGUOI_DUNG}ThongTinTaiKhoan`)
     }
@@ -22,7 +26,6 @@ class quanLyNguoiDungService extends baseService{
         if((model.tuKhoa!=='')&&(model.tuKhoa)){
             addUrl=`&tuKhoa=${model.tuKhoa}`
         }
-        console.log(`${QUAN_LY_NGUOI_DUNG}LayDanhSachNguoiDungPhanTrang?MaNhom=GP01${addUrl}&soTrang=${model.soTrang}&soPhanTuTrenTrang=${model.soPhanTuTrenTrang}`)
         return this.get(`${QUAN_LY_NGUOI_DUNG}LayDanhSachNguoiDungPhanTrang?MaNhom=GP01${addUrl}&soTrang=${model.soTrang}&soPhanTuTrenTrang=${model.soPhanTuTrenTrang}`)
     }
 

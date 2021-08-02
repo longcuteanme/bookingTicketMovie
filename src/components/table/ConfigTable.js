@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { Table, Button, Drawer, Form, Input } from "antd";
-import { DeleteOutlined, EditOutlined, PlusOutlined, RedoOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  PlusOutlined,
+  RedoOutlined,
+} from "@ant-design/icons";
 import { connect } from "react-redux";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 
-function ConfigTable(props) {
+function MyComponent(props) {
+  const { t, i18n } = useTranslation();
   const {
     columns,
     dataSource,
@@ -14,7 +21,6 @@ function ConfigTable(props) {
     title,
     paginationProps,
     formAdd,
-    drawerTitle,
     editMessage,
     truongXoa,
     pagination,
@@ -77,7 +83,7 @@ function ConfigTable(props) {
   return (
     <>
       <Drawer
-        title={drawerTitle}
+        title={chucNang}
         placement="right"
         closable={false}
         onClose={() => {
@@ -87,8 +93,8 @@ function ConfigTable(props) {
         width="50vw"
       >
         <Form
-          name="normal_login"
-          className="login-form"
+          name="normal_add_edit"
+          className="login-add-edit"
           onFinish={(values) => handleFinish(values)}
           size="large"
           form={form}
@@ -114,15 +120,20 @@ function ConfigTable(props) {
             <div className="w-full">
               <div className="flex justify-between items-center mb-3">
                 <h1 className="text-xl">{title}</h1>
-                <RedoOutlined onClick={props.layDuLieu} style={{fontSize:'30px', color: 'gray'}}/>
+                <RedoOutlined
+                  onClick={props.layDuLieu}
+                  style={{ fontSize: "30px", color: "gray" }}
+                />
               </div>
-              
+
               <div className="w-full flex justify-between">
                 <Search
-                  placeholder="Nhập từ khóa"
-                  onSearch={value=>{props.onSearch(value)}}
+                  placeholder={t("Input key")}
+                  onSearch={(value) => {
+                    props.onSearch(value);
+                  }}
                   enterButton
-                  style={{marginRight:'10px'}}
+                  style={{ marginRight: "10px" }}
                 />
                 <Button
                   type="primary"
@@ -131,7 +142,7 @@ function ConfigTable(props) {
                     handleThemMoi();
                   }}
                 >
-                  Thêm mới
+                  {t("Add")}
                 </Button>
               </div>
             </div>
@@ -140,7 +151,7 @@ function ConfigTable(props) {
         columns={[
           ...columns,
           {
-            title: "Action",
+            title: t("Action"),
             width: "200px",
             fixed: "right",
             align: "center",
@@ -154,7 +165,7 @@ function ConfigTable(props) {
                       handleEdit(record);
                     }}
                   >
-                    Edit
+                    {t("Edit")}
                   </Button>
                   <Button
                     type="primary"
@@ -164,7 +175,7 @@ function ConfigTable(props) {
                       props.xoaNguoiDung(record[truongXoa]);
                     }}
                   >
-                    Delete
+                    {t("Delete")}
                   </Button>
                 </div>
               );
@@ -189,6 +200,14 @@ function ConfigTable(props) {
         scroll={{ x: "80vw", y: "80vh" }}
       />
     </>
+  );
+}
+
+function ConfigTable(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
   );
 }
 

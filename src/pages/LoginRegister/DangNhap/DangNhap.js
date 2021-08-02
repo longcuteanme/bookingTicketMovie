@@ -1,11 +1,12 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import rules from '../../../utils/rules/rules'
 import { DANG_NHAP_SAGA } from "../../../redux/constants/totalConstants";
 import {connect} from 'react-redux'
+import { Translation } from "react-i18next";
 
-class DangNhap extends Component {
+class MyComponent extends Component {
   onFinish = async(values) => {
     await this.props.dispatch({
       type:DANG_NHAP_SAGA,
@@ -51,7 +52,7 @@ class DangNhap extends Component {
           </Form.Item>
           <Form.Item>
             <Form.Item name="remember" valuePropName="checked" noStyle>
-              <Checkbox>Remember me</Checkbox>
+              <Checkbox> {<Translation>{(t) => <>{t("Remember me")}</>}</Translation>}</Checkbox>
             </Form.Item>
           </Form.Item>
 
@@ -63,7 +64,7 @@ class DangNhap extends Component {
               size="large"
               style={{width:'100%'}}
             >
-              Đăng nhập
+              {<Translation>{(t) => <>{t("Sign in")}</>}</Translation>}
             </Button>
           </Form.Item>
         </Form>
@@ -71,8 +72,13 @@ class DangNhap extends Component {
     );
   }
 }
-export default connect((state)=>{
-  return{
 
-  }
-})(DangNhap)
+function DangNhap(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
+export default connect()(DangNhap)

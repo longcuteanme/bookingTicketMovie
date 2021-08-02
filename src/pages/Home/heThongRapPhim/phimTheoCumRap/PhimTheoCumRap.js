@@ -1,16 +1,17 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
 import { Tag } from "antd";
 import moment from "moment";
 import { Link } from "react-router-dom";
-import {Button} from 'antd'
-import LoadingBackground from '../../../../assets/images/LoadingBackground.jpg'
+import { Button } from "antd";
+import LoadingBackground from "../../../../assets/images/LoadingBackground.jpg";
+import { Translation } from "react-i18next";
 
 const scrollToTop = () => {
   window.scrollTo(0, 0);
 };
 
-class PhimTheoCumRap extends Component {
+class MyComponent extends Component {
   renderLichChieu = (arr) => {
     return arr.map((item, index) => {
       if (
@@ -82,7 +83,11 @@ class PhimTheoCumRap extends Component {
                         scrollToTop();
                       }}
                     >
-                      <Button style={{margin:'5px 0'}}>Xem chi tiết</Button>
+                      <Button style={{ margin: "5px 0" }}>
+                        <Translation>
+                          {(t) => <>{t("See Details")}</>}
+                        </Translation>
+                      </Button>
                     </Link>
                   ) : (
                     <p className="font-medium text-lg truncate text-green-500 mt-2">
@@ -116,6 +121,15 @@ class PhimTheoCumRap extends Component {
     );
   }
 }
+
+function PhimTheoCumRap(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     listDanhSachLichChieuTheoHeThong:

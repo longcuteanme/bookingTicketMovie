@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Modal, Form, Input, Button, DatePicker, Select } from "antd";
+import React, { Component,Suspense } from "react";
+import { Modal, Form, Button, DatePicker, Select } from "antd";
 import moment from "moment";
 import { connect } from "react-redux";
 import {
@@ -7,6 +7,7 @@ import {
   LAY_THONG_TIN_HE_THONG_RAP_SAGA,
   TAO_LICH_CHIEU_SAGA,
 } from "../../../redux/constants/totalConstants";
+import { Translation } from "react-i18next";
 
 const layout = {
   labelCol: { span: 8 },
@@ -15,7 +16,7 @@ const layout = {
 
 const { Option } = Select;
 
-class ModalTaoLichChieu extends Component {
+class MyComponent extends Component {
   state = {
     indexCumRap: -1,
   };
@@ -80,32 +81,27 @@ class ModalTaoLichChieu extends Component {
         visible={this.props.display}
         centered={true}
         footer={null}
-        title={`Tạo lịch chiếu phim ${data.tenPhim}`}
-        width="30vw"
+        title={`${data.tenPhim}`}
+        width="50vw"
       >
         <Form {...layout} name="modal_tao_lich_chieu" onFinish={this.onFinish}>
-          <Form.Item name="ngayChieuGioChieu" label="Ngày và giờ chiếu">
+          <Form.Item name="ngayChieuGioChieu" label={<Translation>{(t) => <>{t("Show date/Show time")}</>}</Translation>}>
             <DatePicker
               format="DD-MM-YYYY HH:mm:ss"
               showTime={{ defaultValue: moment("00:00:00", "HH:mm:ss") }}
             />
           </Form.Item>
-          <Form.Item name="heThongRap" label="Hệ thống rạp">
+          <Form.Item name="heThongRap" label={<Translation>{(t) => <>{t("Theater System")}</>}</Translation>}>
             <Select onChange={(value) => this.layThongTinCumRap(value)}>
               {this.renderHeThongRap(this.props.listHeThongRap)}
             </Select>
           </Form.Item>
-          <Form.Item name="cumRap" label="Cụm rạp">
+          <Form.Item name="cumRap" label={<Translation>{(t) => <>{t("Cluster of theaters")}</>}</Translation>}>
             <Select>
               {this.renderCumRap(this.props.listDanhSachCumRapTheoHeThong)}
             </Select>
           </Form.Item>
-          {/* <Form.Item name="maRap" label="Rạp số">
-            <Select>
-              {this.renderRap(this.props.listDanhSachCumRapTheoHeThong)}
-            </Select>
-          </Form.Item> */}
-          <Form.Item name="giaVe" label="Giá vé">
+          <Form.Item name="giaVe" label={<Translation>{(t) => <>{t("Fare")}</>}</Translation>}>
             <Select>
               <Option key="1" value={50000}>
                 50.000 vnđ
@@ -125,13 +121,22 @@ class ModalTaoLichChieu extends Component {
             </Select>
           </Form.Item>
           <Button type="primary" style={{ width: "100%" }} htmlType="submit">
-            Tạo lịch chiếu
+            {<Translation>{(t) => <>{t("Create showtime")}</>}</Translation>}
           </Button>
         </Form>
       </Modal>
     );
   }
 }
+
+function ModalTaoLichChieu(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     listHeThongRap: state.thongTinHeThongRapReducer.listHeThongRap,

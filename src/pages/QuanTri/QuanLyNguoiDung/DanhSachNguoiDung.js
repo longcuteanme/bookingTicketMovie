@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import ConfigTable from "../../../components/table/ConfigTable";
 import { connect } from "react-redux";
 import {
@@ -9,11 +9,12 @@ import {
 } from "../../../redux/constants/totalConstants";
 import { Tag, Form, Input, Select } from "antd";
 import rules from "../../../utils/rules/rules";
+import { Translation } from "react-i18next";
 
 const { Option } = Select;
-const editMessage = ["Thêm người dùng", "Chỉnh sửa thông tin"];
+const editMessage = [<Translation>{(t) => <>{t("Add User")}</>}</Translation>, <Translation>{(t) => <>{t("Edit User")}</>}</Translation>];
 
-class DanhSachNguoiDung extends Component {
+class MyComponent extends Component {
   state={
     pagination:{
       total:1,
@@ -106,44 +107,44 @@ class DanhSachNguoiDung extends Component {
     };
     const columns = [
       {
-        title: "Tài khoản",
+        title: <Translation>{(t) => <>{t("Account")}</>}</Translation>,
         dataIndex: "taiKhoan",
         width: "20%",
         align: "center",
         fixed: "left",
       },
       {
-        title: "Mật khẩu",
+        title: <Translation>{(t) => <>{t("Password")}</>}</Translation>,
         dataIndex: "matKhau",
         width: "20%",
         align: "center",
       },
       {
-        title: "Họ tên",
+        title: <Translation>{(t) => <>{t("Full Name")}</>}</Translation>,
         dataIndex: "hoTen",
         width: "20%",
         align: "center",
       },
       {
-        title: "Email",
+        title: <Translation>{(t) => <>{t("Email")}</>}</Translation>,
         dataIndex: "email",
         width: "25%",
         align: "center",
       },
       {
-        title: "Số điện thoại",
+        title: <Translation>{(t) => <>{t("Phone Number")}</>}</Translation>,
         dataIndex: "soDt",
         width: "25%",
         align: "center",
       },
       {
-        title: "Loại Người Dùng",
+        title: <Translation>{(t) => <>{t("User type")}</>}</Translation>,
         dataIndex: "maLoaiNguoiDung",
         render: (item) => {
           return item === "QuanTri" ? (
-            <Tag color="#f50">QUẢN TRỊ</Tag>
+            <Tag color="#f50"><Translation>{(t) => <>{t("ADMINISTRATOR")}</>}</Translation></Tag>
           ) : (
-            <Tag color="#87d068">KHÁCH HÀNG</Tag>
+            <Tag color="#87d068"><Translation>{(t) => <>{t("CUSTOMER")}</>}</Translation></Tag>
           );
         },
         width: "20%",
@@ -156,7 +157,7 @@ class DanhSachNguoiDung extends Component {
           name="hoTen"
           rules={[...rules.ten, ...rules.required]}
           initialValue=""
-          label="Họ và tên"
+          label={<Translation>{(t) => <>{t("Full Name")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(100% - 8px)',
@@ -168,7 +169,7 @@ class DanhSachNguoiDung extends Component {
         <Form.Item
           name="email"
           rules={[...rules.required, ...rules.email]}
-          label="Email"
+          label={<Translation>{(t) => <>{t("Email")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(50% - 8px)',
@@ -180,7 +181,7 @@ class DanhSachNguoiDung extends Component {
         <Form.Item
           name="soDt"
           rules={[...rules.required, ...rules.soDienThoai]}
-          label="Số điện thoại"
+          label={<Translation>{(t) => <>{t("Phone Number")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(50% - 8px)',
@@ -193,7 +194,7 @@ class DanhSachNguoiDung extends Component {
         <Form.Item
           name="taiKhoan"
           rules={[...rules.required, ...rules.username]}
-          label="Tài khoản"
+          label={<Translation>{(t) => <>{t("Account")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(70% - 8px)',
@@ -205,7 +206,7 @@ class DanhSachNguoiDung extends Component {
         <Form.Item
           name="maLoaiNguoiDung"
           rules={[...rules.required]}
-          label="Loại người dùng"
+          label={<Translation>{(t) => <>{t("User type")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(30% - 8px)',
@@ -221,7 +222,7 @@ class DanhSachNguoiDung extends Component {
         <Form.Item
           name="matKhau"
           rules={[...rules.required, ...rules.password]}
-          label="Mật khẩu"
+          label={<Translation>{(t) => <>{t("Password")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(50% - 8px)',
@@ -245,7 +246,7 @@ class DanhSachNguoiDung extends Component {
               },
             }),
           ]}
-          label="Xác nhận mật khẩu"
+          label={<Translation>{(t) => <>{t("Password Confirm")}</>}</Translation>}
           style={{
             display:'inline-block',
             width: 'calc(50% - 8px)',
@@ -259,14 +260,13 @@ class DanhSachNguoiDung extends Component {
     return (
       <>
         <ConfigTable
-          title="DANH SÁCH NGƯỜI DÙNG"
+          title={<Translation>{(t) => <>{t("LIST USERS")}</>}</Translation>}
           columns={columns}
           dataSource={data?.items}
           paginationProps={paginationProps}
           pagination={this.state.pagination}
           layDuLieu={this.layDuLieu}
           formAdd={formAdd}
-          drawerTitle="Thêm người dùng"
           xoaNguoiDung={this.xoaNguoiDung}
           truongXoa="taiKhoan"
           suaThongTin={this.suaThongTin}
@@ -279,6 +279,15 @@ class DanhSachNguoiDung extends Component {
     );
   }
 }
+
+function DanhSachNguoiDung(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
 export default connect((state) => {
   return {
     danhSachNguoiDungQuanTri:

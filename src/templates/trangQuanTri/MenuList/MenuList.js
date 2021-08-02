@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Layout, Menu } from "antd";
 import logo from "../../../assets/images/logo.png";
 import { menuList, subMenuArray } from "./configMenu";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { SET_OPEN_KEYS } from "../../../redux/constants/totalConstants";
 
@@ -71,7 +71,11 @@ class MenuList extends Component {
     return (
       <Sider trigger={null} collapsible collapsed={this.props.collapsed}>
         <div className="w-full flex justify-center p-3">
-          <img className="w-1/2 inline-block" src={logo} alt="logo" />
+          <Link
+            onClick={scrollToTop} to="/"
+          >
+            <img className="w-1/2" src={logo} alt="logo" />
+          </Link>
         </div>
         <Menu
           theme="dark"

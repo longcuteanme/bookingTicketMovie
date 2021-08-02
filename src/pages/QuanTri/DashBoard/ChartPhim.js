@@ -18,7 +18,7 @@ const data = [
   },
   {
     type: "Sắp chiếu",
-    value: 18
+    value: 15
   },
 ]; // 可以通过调整这个数值控制分割空白处的间距，0-1 之间的数值
 
@@ -59,7 +59,7 @@ export default class ChartPhim extends React.Component {
         />
             <Annotation.Text
             position={['50%', '50%']}
-            content="Người dùng"
+            content="Phim"
             style={{
               lineHeight: '240px',
               fontSize: '25',

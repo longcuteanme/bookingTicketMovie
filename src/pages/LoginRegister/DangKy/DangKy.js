@@ -1,14 +1,31 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import { Form, Input, Button } from "antd";
 import rules from "../../../utils/rules/rules";
+import { DANG_KY_SAGA } from "../../../redux/constants/totalConstants";
+import { connect } from "react-redux";
+import { Translation } from "react-i18next";
 
-export default class DangKy extends Component {
+class MyComponent extends Component {
+  onFinish = (values) => {
+    this.props.dispatch({
+      type: DANG_KY_SAGA,
+      model: {
+        email: values.email,
+        hoTen: values.hoTen,
+        matKhau: values.matKhau,
+        soDt: values.soDt,
+        taiKhoan: values.taiKhoan,
+        maNhom: "GP01",
+      },
+      changeDangNhap:()=>{this.props.changeDangNhap(true)},
+    });
+  };
   render() {
     return (
       <div className="p-4">
         <Form
           name="normal_login"
-          className="login-form"
+          className="register-form"
           initialValues={{
             remember: true,
           }}
@@ -86,7 +103,7 @@ export default class DangKy extends Component {
               size="large"
               style={{ width: "100%" }}
             >
-              Đăng ký
+              {<Translation>{(t) => <>{t("Register")}</>}</Translation>}
             </Button>
           </Form.Item>
         </Form>
@@ -94,3 +111,13 @@ export default class DangKy extends Component {
     );
   }
 }
+
+function DangKy(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
+}
+
+export default connect()(DangKy);

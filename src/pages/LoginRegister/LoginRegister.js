@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { Component,Suspense } from "react";
 import backgroundLogin from "../../assets/images/backgroundFooter.jpg";
 import logo from "../../assets/images/logo.png";
 import DangNhap from "./DangNhap/DangNhap";
 import DangKy from "./DangKy/DangKy";
 import { USER_ACCESS_TOKEN } from "../../utils/constants/settingSystem";
 import { Redirect } from "react-router-dom";
-import { ContactsOutlined } from "@ant-design/icons";
+import { Translation } from "react-i18next";
 
-export default class LoginRegister extends Component {
+class MyComponent extends Component {
   state = {
     dangNhap: true,
   };
@@ -30,11 +30,10 @@ export default class LoginRegister extends Component {
           className="w-screen h-auto min-h-screen flex justify-center items-center bg-cover bg-center"
           style={{ backgroundImage: `url(${backgroundLogin})` }}
         >
-          {/* {console.log(this.props)} */}
           <div className="h-auto w-1/2 bg-white p-5 rounded-xl shadow-2xl">
             <div className="w-full flex items-center justify-center mb-5">
               <img className="inline-block" src={logo} alt="logo m-0" />
-              <h1 className="text-5xl m-0 inline-block">Login</h1>
+              <h1 className="text-5xl m-0 inline-block">{<Translation>{(t) => <>{t("Sign in")}</>}</Translation>}</h1>
             </div>
             <div className="w-full border-2 border-collapse p-3 rounded-xl">
               <div className="w-full grid grid-cols-2">
@@ -49,7 +48,7 @@ export default class LoginRegister extends Component {
                     this.changeDangNhap(true);
                   }}
                 >
-                  <h1 className="text-center text-xl m-0">Đăng nhập</h1>
+                  <h1 className="text-center text-xl m-0">{<Translation>{(t) => <>{t("Sign in")}</>}</Translation>}</h1>
                 </div>
                 <div
                   className="w-full p-3 cursor-pointer"
@@ -62,14 +61,14 @@ export default class LoginRegister extends Component {
                     this.changeDangNhap(false);
                   }}
                 >
-                  <h1 className="text-center text-xl m-0">Đăng ký</h1>
+                  <h1 className="text-center text-xl m-0">{<Translation>{(t) => <>{t("Register")}</>}</Translation>}</h1>
                 </div>
               </div>
               <div>
                 {this.state?.dangNhap ? (
                   <DangNhap history={this.props.history}/>
                 ) : (
-                  <DangKy />
+                  <DangKy changeDangNhap={this.changeDangNhap}/>
                 )}
               </div>
             </div>
@@ -78,4 +77,12 @@ export default class LoginRegister extends Component {
       );
     }
   }
+}
+
+export default function LoginRegister(props) {
+  return (
+    <Suspense fallback="loading">
+      <MyComponent {...props} />
+    </Suspense>
+  );
 }

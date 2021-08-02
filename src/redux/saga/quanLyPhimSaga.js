@@ -15,7 +15,7 @@ import {
   THEM_PHIM_SAGA,
   XOA_PHIM_SAGA,
 } from "../constants/totalConstants";
-import { takeLatest, put, call, delay } from "redux-saga/effects";
+import { takeLatest, put, call } from "redux-saga/effects";
 import { QuanLyPhimService } from "../../services/quanLyPhimService";
 import { STATUS_CODE } from "../../utils/constants/settingSystem";
 // import {DISPLAY_LOADING, HIDE_LOADING} from '../constants/loadingConstants'
@@ -35,7 +35,7 @@ function* layDanhSachBanner() {
       alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
     }
   } catch (err) {
-    console.log(err);
+    alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
   }
 }
 export function* sagaLayDanhSachBanner() {
@@ -55,7 +55,7 @@ function* layDanhSachPhim() {
       alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
     }
   } catch (err) {
-    console.log(err);
+      alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
   }
 }
 export function* sagaLayDanhSachPhim() {
@@ -80,7 +80,7 @@ function* layThongTinPhim(action) {
       alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
     }
   } catch (err) {
-    console.log(err);
+    alert("Có lỗi xảy ra trong quá trình lấy dữ liệu từ máy chủ");
   }
   yield put({
     type: HIDE_LOADING,
@@ -137,9 +137,11 @@ function* xoaPhim(action) {
     const err = { ...error };
     if (err?.response?.data) {
       yield alert(
-        `ERROR${err?.response.status}: ${err?.response.data.content}`
+        `ERROR${err?.response?.status}: ${err?.response?.data?.content}`
       );
-    } else yield alert("Có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại");
+    } else {
+      yield alert("Có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại");
+    }
   }
   yield put({
     type: HIDE_QUAN_TRI_LOADING,
@@ -166,10 +168,9 @@ function* themPhim(action) {
       yield alert(
         `ERROR${err?.response?.status}: ${err?.response?.data?.content}`
       );
-    } else{
-        yield alert("Có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại");
-        console.log(err)
-    } 
+    } else {
+      yield alert("Có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại");
+    }
   }
   yield put({
     type: HIDE_QUAN_TRI_LOADING,
@@ -192,11 +193,12 @@ function* capNhatPhim(action) {
     }
   } catch (error) {
     const err = { ...error };
-    yield console.log(error, err);
     if (err.response) {
       yield alert(
         `ERROR${err?.response?.status}: ${err?.response?.data?.content}`
       );
+    } else {
+      yield alert("Có lỗi xảy ra trong quá trình xử lý, vui lòng thử lại");
     }
   }
   yield put({

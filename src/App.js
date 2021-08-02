@@ -30,11 +30,11 @@ function App() {
         {menuList.map((item)=>{
           if(item.children){
             return item.children.map((item2)=>{
-              return <TrangQuanTri path={`/QuanTri${item.path}${item2.path}`} exact Component={item2.Component}/>
+              return <TrangQuanTri path={`/QuanTri${item.path}${item2.path}`} exact Component={item2.Component} history={history}/>
             })
           }
           else{
-            return <TrangQuanTri path={`/QuanTri${item.path}`} exact Component={item.Component}/>
+            return <TrangQuanTri path={`/QuanTri${item.path}`} exact Component={item.Component} history={history}/>
           }
         })}
         <TrangNguoiDung path='*' Component={PageNotFound}/>
