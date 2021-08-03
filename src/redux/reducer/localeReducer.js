@@ -4,7 +4,7 @@ const initialState={
     value:'en'
 }
 
-export default (state=initialState,action)=>{
+const localeReducer = (state=initialState,action)=>{
     switch(action.type){
         case CHANGE_LOCALE :{
             let newState=state
@@ -16,3 +16,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default localeReducer

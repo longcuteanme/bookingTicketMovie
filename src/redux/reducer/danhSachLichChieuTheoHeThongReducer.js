@@ -5,7 +5,7 @@ const initialState={
     pickedIndex:0,
 }
 
-export default (state=initialState,action)=>{
+const danhSachLichChieuTheoHeThongReducer = (state=initialState,action)=>{
     switch(action.type){
 
         case LAY_DANH_SACH_LICH_CHIEU_THEO_HE_THONG:{
@@ -26,3 +26,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default danhSachLichChieuTheoHeThongReducer

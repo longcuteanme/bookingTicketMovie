@@ -19,13 +19,14 @@ class MenuList extends Component {
       if (item.children) {
         return (
           <SubMenu key={item.key} icon={item.icon} title={item.name}>
-            {item.children.map((item2) => {
+            {item.children.map((item2,index2) => {
               return (
                 <Link
                   onClick={() => {
                     scrollToTop();
                   }}
                   to={`/QuanTri${item.path}${item2.path}`}
+                  key={index2}
                 >
                   <Menu.Item key={item2.key}>{item2.name}</Menu.Item>
                 </Link>

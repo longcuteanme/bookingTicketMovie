@@ -4,7 +4,7 @@ const initialState={
     thongTinTaiKhoan:{}
 }
 
-export default (state=initialState,action)=>{
+const thongTinTaiKhoanReducer = (state=initialState,action)=>{
     switch(action.type){
 
         case LAY_THONG_TIN_TAI_KHOAN:{
@@ -18,3 +18,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default thongTinTaiKhoanReducer

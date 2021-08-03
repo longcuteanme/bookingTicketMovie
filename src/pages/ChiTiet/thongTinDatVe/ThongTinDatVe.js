@@ -24,62 +24,66 @@ class MyComponent extends Component {
       <div className="grid grid-cols-2">
         <div>
           <table className="table-auto text-white text-lg">
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Movie's name")}</>}</Translation>
-              </td>
-              <td className="font-light p-2">{data?.tenPhim}</td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Premiere date")}</>}</Translation>
-              </td>
-              <td className="font-light p-2">
-                {moment(data?.ngayKhoiChieu).format("DD.MM.YYYY")}
-              </td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Director")}</>}</Translation>
-              </td>
-              <td className="font-light p-2"></td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Performer")}</>}</Translation>
-              </td>
-              <td className="font-light p-2"></td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Category")}</>}</Translation>
-              </td>
-              <td className="font-light p-2"></td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Format")}</>}</Translation>
-              </td>
-              <td className="font-light p-2">2D/Digitals</td>
-            </tr>
-            <tr>
-              <td className="font-medium p-2">
-                <Translation>{(t) => <>{t("Nation")}</>}</Translation>
-              </td>
-              <td className="font-light p-2"></td>
-            </tr>
+            <tbody key="tbody">
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Movie's name")}</>}</Translation>
+                </td>
+                <td className="font-light p-2">{data?.tenPhim}</td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Premiere date")}</>}</Translation>
+                </td>
+                <td className="font-light p-2">
+                  {moment(data?.ngayKhoiChieu).format("DD.MM.YYYY")}
+                </td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Director")}</>}</Translation>
+                </td>
+                <td className="font-light p-2"></td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Performer")}</>}</Translation>
+                </td>
+                <td className="font-light p-2"></td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Category")}</>}</Translation>
+                </td>
+                <td className="font-light p-2"></td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Format")}</>}</Translation>
+                </td>
+                <td className="font-light p-2">2D/Digitals</td>
+              </tr>
+              <tr>
+                <td className="font-medium p-2">
+                  <Translation>{(t) => <>{t("Nation")}</>}</Translation>
+                </td>
+                <td className="font-light p-2"></td>
+              </tr>
+            </tbody>
           </table>
         </div>
         <div>
           <table className="table-auto text-white text-lg">
-            <tr>
-              <td className="p-2 font-bold">
-                <Translation>{(t) => <>{t("Content")}</>}</Translation>
-              </td>
-            </tr>
-            <tr>
-              <td className="p-2">{data?.moTa}</td>
-            </tr>
+            <tbody key="tbody">
+              <tr>
+                <td className="p-2 font-bold">
+                  <Translation>{(t) => <>{t("Content")}</>}</Translation>
+                </td>
+              </tr>
+              <tr>
+                <td className="p-2">{data?.moTa}</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

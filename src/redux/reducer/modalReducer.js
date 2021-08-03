@@ -5,7 +5,7 @@ const initialState={
     src:'',
 }
 
-export default (state=initialState,action)=>{
+const modalReducer = (state=initialState,action)=>{
     switch(action.type){
 
         case OPEN_MODAL:{
@@ -27,3 +27,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default modalReducer

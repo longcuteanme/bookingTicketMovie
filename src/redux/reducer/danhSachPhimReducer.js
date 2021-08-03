@@ -4,7 +4,7 @@ const initialState={
     danhSachPhim:[]
 }
 
-export default (state=initialState,action)=>{
+const danhSachPhimReducer = (state=initialState,action)=>{
     switch(action.type){
         
         case LAY_DANH_SACH_PHIM:{
@@ -18,3 +18,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default danhSachPhimReducer

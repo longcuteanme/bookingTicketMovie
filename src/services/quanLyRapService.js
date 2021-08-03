@@ -2,10 +2,6 @@ import baseService from './baseService'
 import { QUAN_LY_RAP } from "../utils/constants/settingSystem";
 
 class quanLyRapService extends baseService {
-    constructor(){
-        super();
-    }
-
     layThongTinHeThongRap=()=>{
         return this.get(`${QUAN_LY_RAP}LayThongTinHeThongRap`)
     }

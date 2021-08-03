@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
 import store from './redux/configStore';
-import './index.css';
+import './styles/tailwind.css';
 import "antd/dist/antd.css";
 import './i18n';
 

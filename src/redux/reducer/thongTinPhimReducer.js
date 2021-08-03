@@ -4,7 +4,7 @@ const initialState={
     thongTinChiTietPhim:{},
 }
 
-export default (state=initialState,action)=>{
+const thongTinPhimReducer = (state=initialState,action)=>{
     switch(action.type){
 
         case LAY_THONG_TIN_LICH_CHIEU_PHIM:{
@@ -18,3 +18,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default thongTinPhimReducer

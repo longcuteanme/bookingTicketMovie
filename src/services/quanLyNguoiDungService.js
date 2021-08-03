@@ -2,9 +2,6 @@ import baseService from "./baseService";
 import { QUAN_LY_NGUOI_DUNG } from "../utils/constants/settingSystem";
 
 class quanLyNguoiDungService extends baseService{
-    constructor(){
-        super();
-    }
     dangNhap=(model)=>{
         return this.post(`${QUAN_LY_NGUOI_DUNG}DangNhap`,model)
     }

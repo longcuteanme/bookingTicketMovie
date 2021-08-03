@@ -2,9 +2,6 @@ import baseService from "./baseService";
 import { QUAN_LY_PHIM } from "../utils/constants/settingSystem";
 
 class quanLyPhimService extends baseService {
-    constructor(){
-        super();
-    }
     layDanhSachBanner=()=>{
         return this.get(`${QUAN_LY_PHIM}LayDanhSachBanner`)
     }

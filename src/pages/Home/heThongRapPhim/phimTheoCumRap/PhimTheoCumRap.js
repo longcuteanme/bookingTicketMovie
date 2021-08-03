@@ -23,17 +23,17 @@ class MyComponent extends Component {
             onClick={() => {
               scrollToTop();
             }}
+            key={index}
           >
             <div
               className="px-3 py-2 border border-solid m-2"
               style={{ display: "inline-block" }}
-              key={index}
             >
               {moment(item?.ngayChieuGioChieu).format("HH:mm")}
             </div>
           </Link>
         );
-      }
+      } else return <></>;
     });
   };
 
@@ -52,53 +52,41 @@ class MyComponent extends Component {
             );
           });
           return (
-            <Link
-              to={`/ChiTiet/${item?.maPhim}`}
-              onClick={() => {
-                scrollToTop();
-              }}
-            >
+            <div className="h-auto cursor-pointer hover:opacity-100 p-3 grid grid-cols-7 key={index}">
               <div
-                key={index}
-                className="h-auto cursor-pointer hover:opacity-100 p-3 grid grid-cols-7"
+                className="w-full h-16 col-span-1 bg-center bg-cover"
+                style={{ backgroundImage: `url(${LoadingBackground})` }}
               >
                 <div
-                  className="w-full h-16 col-span-1 bg-center bg-cover"
-                  style={{ backgroundImage: `url(${LoadingBackground})` }}
-                >
-                  <div
-                    className="w-full h-full col-span-1 bg-center bg-cover"
-                    style={{ backgroundImage: `url(${item?.hinhAnh})` }}
-                  ></div>
-                </div>
-                <div className="col-span-6 ml-2 text-left">
-                  <h1 className=" font-bold text-xl truncate m-0">
-                    <Tag color="#cd201f">HOT</Tag>
-                    {item?.tenPhim}
-                  </h1>
-                  {viTri === -1 ? (
-                    <Link
-                      to={`/ChiTiet/${item?.maPhim}`}
-                      onClick={() => {
-                        scrollToTop();
-                      }}
-                    >
-                      <Button style={{ margin: "5px 0" }}>
-                        <Translation>
-                          {(t) => <>{t("See Details")}</>}
-                        </Translation>
-                      </Button>
-                    </Link>
-                  ) : (
-                    <p className="font-medium text-lg truncate text-green-500 mt-2">
-                      {this.renderLichChieu(item?.lstLichChieuTheoPhim)}
-                    </p>
-                  )}
-                </div>
-
-                {/* <p className="text-red-600 font-light">[Chi Tiết]</p> */}
+                  className="w-full h-full col-span-1 bg-center bg-cover"
+                  style={{ backgroundImage: `url(${item?.hinhAnh})` }}
+                ></div>
               </div>
-            </Link>
+              <div className="col-span-6 ml-2 text-left">
+                <h1 className=" font-bold text-xl truncate m-0">
+                  <Tag color="#cd201f">HOT</Tag>
+                  {item?.tenPhim}
+                </h1>
+                {viTri === -1 ? (
+                  <Link
+                    to={`/ChiTiet/${item?.maPhim}`}
+                    onClick={() => {
+                      scrollToTop();
+                    }}
+                  >
+                    <Button style={{ margin: "5px 0" }}>
+                      <Translation>
+                        {(t) => <>{t("See Details")}</>}
+                      </Translation>
+                    </Button>
+                  </Link>
+                ) : (
+                  <div className="font-medium text-lg truncate text-green-500 mt-2">
+                    {this.renderLichChieu(item?.lstLichChieuTheoPhim)}
+                  </div>
+                )}
+              </div>
+            </div>
           );
         })}
       </div>

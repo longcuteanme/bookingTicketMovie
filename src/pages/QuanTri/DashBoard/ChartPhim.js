@@ -2,7 +2,6 @@ import React from "react";
 import {
   Chart,
   registerShape,
-  Geom,
   Axis,
   Tooltip,
   Interval,

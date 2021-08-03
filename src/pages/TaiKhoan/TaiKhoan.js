@@ -1,4 +1,4 @@
-import React, { Component,Suspense } from "react";
+import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
 import { LAY_THONG_TIN_TAI_KHOAN_SAGA } from "../../redux/constants/totalConstants";
 import { UserOutlined } from "@ant-design/icons";
@@ -65,72 +65,94 @@ class MyComponent extends Component {
           {item.danhSachDat.map((item2, index2) => {
             return (
               <table className="w-full table-fixed" key={index2}>
-                <tr className="p-3">
-                  <th className="w-2/12 p-2">
-                    <div
-                      className="w-full h-28 bg-white bg-cover bg-center rounded-xs"
-                      style={{
-                        backgroundImage: `url(${LoadingBackground})`,
-                        boxShadow: "0px 0px 3px gray",
-                      }}
-                    >
+                <tbody key="tbody">
+                  <tr className="p-3">
+                    <th className="w-2/12 p-2">
                       <div
-                        className="h-full w-full bg-cover bg-center rounded-xs shadow-lg"
-                        style={{ backgroundImage: `url(${item2?.hinhAnh})` }}
-                      ></div>
-                    </div>
-                  </th>
-                  <th className="w-10/12">
-                    <h1 className="text-2xl text-left m-0">{item2?.tenPhim}</h1>
-                    <h1 className="text-sm text-left m-0 text-green-500 font-light">
-                      <Translation>{(t) => <>{t("Length")}</>}</Translation>: {item2?.thoiLuongPhim} <Translation>{(t) => <>{t("Minutes")}</>}</Translation>
-                    </h1>
-                    <table className="w-full h-auto">
-                      <tr>
-                        <th className="w-8/12 align-top">
-                          <h1 className="text-md text-left m-0">
-                            <Translation>{(t) => <>{t("Cluster of theaters")}</>}</Translation>:{" "}
-                            <span className="font-light italic">
-                              {item2?.danhSachGhe[0]?.tenHeThongRap}
-                            </span>
-                          </h1>
-                        </th>
-                        <th className="w-4/12 align-top">
-                          <h1 className="text-md text-left m-0">
-                            <Translation>{(t) => <>{t("Theater")}</>}</Translation>:{" "}
-                            <span className="font-light italic">
-                              {item2?.danhSachGhe[0]?.tenCumRap}
-                            </span>
-                          </h1>
-                        </th>
-                      </tr>
-                      <tr>
-                        <th className="w-8/12 align-top">
-                          <h1 className="text-md text-left m-0">
-                            <Translation>{(t) => <>{t("Booked chair")}</>}</Translation>:{" "}
-                            {item2?.danhSachGhe.map((item3) => {
-                              return (
-                                <span className="font-light text-yellow-600 inline-block">
-                                  {`${
-                                    abc[Math.floor(Number(item3?.tenGhe) / 16)]
-                                  }${Number(item3?.tenGhe) % 16},`}
+                        className="w-full h-28 bg-white bg-cover bg-center rounded-xs"
+                        style={{
+                          backgroundImage: `url(${LoadingBackground})`,
+                          boxShadow: "0px 0px 3px gray",
+                        }}
+                      >
+                        <div
+                          className="h-full w-full bg-cover bg-center rounded-xs shadow-lg"
+                          style={{ backgroundImage: `url(${item2?.hinhAnh})` }}
+                        ></div>
+                      </div>
+                    </th>
+                    <th className="w-10/12">
+                      <h1 className="text-2xl text-left m-0">
+                        {item2?.tenPhim}
+                      </h1>
+                      <h1 className="text-sm text-left m-0 text-green-500 font-light">
+                        <Translation>{(t) => <>{t("Length")}</>}</Translation>:{" "}
+                        {item2?.thoiLuongPhim}{" "}
+                        <Translation>{(t) => <>{t("Minutes")}</>}</Translation>
+                      </h1>
+                      <table className="w-full h-auto">
+                        <tbody key="tbody">
+                          <tr>
+                            <th className="w-8/12 align-top">
+                              <h1 className="text-md text-left m-0">
+                                <Translation>
+                                  {(t) => <>{t("Cluster of theaters")}</>}
+                                </Translation>
+                                :{" "}
+                                <span className="font-light italic">
+                                  {item2?.danhSachGhe[0]?.tenHeThongRap}
                                 </span>
-                              );
-                            })}
-                          </h1>
-                        </th>
-                        <th className="w-4/12 align-top">
-                          <h1 className="text-md text-left m-0">
-                            <Translation>{(t) => <>{t("Booking time")}</>}</Translation>:{" "}
-                            <span className="font-light text-yellow-600">
-                              {moment(item2.ngayDat).format("kk:mm")}
-                            </span>
-                          </h1>
-                        </th>
-                      </tr>
-                    </table>
-                  </th>
-                </tr>
+                              </h1>
+                            </th>
+                            <th className="w-4/12 align-top">
+                              <h1 className="text-md text-left m-0">
+                                <Translation>
+                                  {(t) => <>{t("Theater")}</>}
+                                </Translation>
+                                :{" "}
+                                <span className="font-light italic">
+                                  {item2?.danhSachGhe[0]?.tenCumRap}
+                                </span>
+                              </h1>
+                            </th>
+                          </tr>
+                          <tr>
+                            <th className="w-8/12 align-top">
+                              <h1 className="text-md text-left m-0">
+                                <Translation>
+                                  {(t) => <>{t("Booked chair")}</>}
+                                </Translation>
+                                :{" "}
+                                {item2?.danhSachGhe.map((item3,index3) => {
+                                  return (
+                                    <span className="font-light text-yellow-600 inline-block" key={index3}>
+                                      {`${
+                                        abc[
+                                          Math.floor(Number(item3?.tenGhe) / 16)
+                                        ]
+                                      }${Number(item3?.tenGhe) % 16},`}
+                                    </span>
+                                  );
+                                })}
+                              </h1>
+                            </th>
+                            <th className="w-4/12 align-top">
+                              <h1 className="text-md text-left m-0">
+                                <Translation>
+                                  {(t) => <>{t("Booking time")}</>}
+                                </Translation>
+                                :{" "}
+                                <span className="font-light text-yellow-600">
+                                  {moment(item2.ngayDat).format("kk:mm")}
+                                </span>
+                              </h1>
+                            </th>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </th>
+                  </tr>
+                </tbody>
               </table>
             );
           })}
@@ -161,83 +183,103 @@ class MyComponent extends Component {
           history={this.props.history}
         />
         <table className="table-fixed w-full">
-          <tr>
-            <th className="w-5/12 align-top p-3 h-auto">
-              <div
-                className="bg-white w-full h-auto rounded-lg p-4"
-                style={{ boxShadow: "0px 0px 7px gray" }}
-              >
-                <div className="rounded-full border-4 border-gray-500 p-5 w-auto inline-block">
-                  <UserOutlined
-                    style={{ fontSize: "90px", color: "gray", margin: "0" }}
-                  />
-                </div>
-                <h1 className="text-3xl mt-2 mb-0">
-                  {thongTinTaiKhoan?.taiKhoan}
-                </h1>
-              </div>
-              <div
-                className="bg-white w-full h-auto rounded-lg p-3 mt-5"
-                style={{ boxShadow: "0px 0px 7px gray" }}
-              >
-                <table className="w-full table-fixed divide-y-2 divide-gray-200">
-                  <tr>
-                    <th className="w-1/3 p-4 text-left text-lg"><Translation>{(t) => <>{t("Full name")}</>}</Translation></th>
-                    <th className="w-2/3 p-4 text-right text-lg font-light">
-                      {thongTinTaiKhoan?.hoTen}
-                    </th>
-                  </tr>
-                  <tr>
-                    <th className="w-1/3 p-4 text-left text-lg"><Translation>{(t) => <>{t("Email")}</>}</Translation></th>
-                    <th className="w-1/3 p-4 text-right text-lg font-light">
-                      {thongTinTaiKhoan?.email}
-                    </th>
-                  </tr>
-                  <tr>
-                    <th className="w-1/3 p-4 text-left text-lg">
-                      <Translation>{(t) => <>{t("Phone Number")}</>}</Translation>
-                    </th>
-                    <th className="w-2/3 p-4 text-right text-lg font-light">
-                      {thongTinTaiKhoan?.soDT}
-                    </th>
-                  </tr>
-                  <tr>
-                    <th className="w-1/3 p-4 text-left text-lg"><Translation>{(t) => <>{t("User")}</>}</Translation></th>
-                    <th className="w-2/3 p-4 text-right text-lg font-light">
-                      {thongTinTaiKhoan?.loaiNguoiDung === "QuanTri"
-                        ? "Quản trị"
-                        : "Khách hàng"}
-                    </th>
-                  </tr>
-                </table>
-                <div className="w-full bg-blue-500 hover:bg-blue-400 p-2 mt-4 cursor-pointer">
-                  <h1
-                    className="text-white text-lg m-0"
-                    onClick={() => {
-                      this.changeModal(true);
-                    }}
-                  >
-                    <Translation>{(t) => <>{t("Update Information")}</>}</Translation>
+          <tbody key="tbody">
+            <tr>
+              <th className="w-5/12 align-top p-3 h-auto">
+                <div
+                  className="bg-white w-full h-auto rounded-lg p-4"
+                  style={{ boxShadow: "0px 0px 7px gray" }}
+                >
+                  <div className="rounded-full border-4 border-gray-500 p-5 w-auto inline-block">
+                    <UserOutlined
+                      style={{ fontSize: "90px", color: "gray", margin: "0" }}
+                    />
+                  </div>
+                  <h1 className="text-3xl mt-2 mb-0">
+                    {thongTinTaiKhoan?.taiKhoan}
                   </h1>
                 </div>
-              </div>
-            </th>
-            <th className="w-7/12 align-top p-3 h-auto">
-              <div
-                className="bg-white w-full rounded-lg p-3 overflow-auto"
-                style={{ boxShadow: "0px 0px 7px gray", maxHeight:'590px'}}
-              >
-                <h1 className="text-2xl"><Translation>{(t) => <>{t("Booking history")}</>}</Translation></h1>
-                <div>
-                  {thongTinTaiKhoan?.thongTinDatVe ? (
-                    this.renderLichSuDatVe(thongTinTaiKhoan?.thongTinDatVe)
-                  ) : (
-                    <></>
-                  )}
+                <div
+                  className="bg-white w-full h-auto rounded-lg p-3 mt-5"
+                  style={{ boxShadow: "0px 0px 7px gray" }}
+                >
+                  <table className="w-full table-fixed divide-y-2 divide-gray-200">
+                    <tbody key="tbody">
+                      <tr>
+                        <th className="w-1/3 p-4 text-left text-lg">
+                          <Translation>
+                            {(t) => <>{t("Full name")}</>}
+                          </Translation>
+                        </th>
+                        <th className="w-2/3 p-4 text-right text-lg font-light">
+                          {thongTinTaiKhoan?.hoTen}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="w-1/3 p-4 text-left text-lg">
+                          <Translation>{(t) => <>{t("Email")}</>}</Translation>
+                        </th>
+                        <th className="w-1/3 p-4 text-right text-lg font-light">
+                          {thongTinTaiKhoan?.email}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="w-1/3 p-4 text-left text-lg">
+                          <Translation>
+                            {(t) => <>{t("Phone Number")}</>}
+                          </Translation>
+                        </th>
+                        <th className="w-2/3 p-4 text-right text-lg font-light">
+                          {thongTinTaiKhoan?.soDT}
+                        </th>
+                      </tr>
+                      <tr>
+                        <th className="w-1/3 p-4 text-left text-lg">
+                          <Translation>{(t) => <>{t("User")}</>}</Translation>
+                        </th>
+                        <th className="w-2/3 p-4 text-right text-lg font-light">
+                          {thongTinTaiKhoan?.loaiNguoiDung === "QuanTri"
+                            ? "Quản trị"
+                            : "Khách hàng"}
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div className="w-full bg-blue-500 hover:bg-blue-400 p-2 mt-4 cursor-pointer">
+                    <h1
+                      className="text-white text-lg m-0"
+                      onClick={() => {
+                        this.changeModal(true);
+                      }}
+                    >
+                      <Translation>
+                        {(t) => <>{t("Update Information")}</>}
+                      </Translation>
+                    </h1>
+                  </div>
                 </div>
-              </div>
-            </th>
-          </tr>
+              </th>
+              <th className="w-7/12 align-top p-3 h-auto">
+                <div
+                  className="bg-white w-full rounded-lg p-3 overflow-auto"
+                  style={{ boxShadow: "0px 0px 7px gray", maxHeight: "590px" }}
+                >
+                  <h1 className="text-2xl">
+                    <Translation>
+                      {(t) => <>{t("Booking history")}</>}
+                    </Translation>
+                  </h1>
+                  <div>
+                    {thongTinTaiKhoan?.thongTinDatVe ? (
+                      this.renderLichSuDatVe(thongTinTaiKhoan?.thongTinDatVe)
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
@@ -247,7 +289,7 @@ class MyComponent extends Component {
 function TaiKhoan(props) {
   return (
     <Suspense fallback="loading">
-      <MyComponent {...props}/>
+      <MyComponent {...props} />
     </Suspense>
   );
 }

@@ -4,7 +4,7 @@ const intialState={
     openKeys:[],
 }
 
-export default (state=intialState,action)=>{
+const menuQuanTriReducer = (state=intialState,action)=>{
     switch(action.type){
         case SET_OPEN_KEYS:{
             let newState=state
@@ -16,3 +16,4 @@ export default (state=intialState,action)=>{
         }
     }
 }
+export default menuQuanTriReducer

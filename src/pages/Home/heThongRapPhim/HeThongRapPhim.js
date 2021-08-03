@@ -9,7 +9,7 @@ export default class HeThongRapPhim extends Component {
     return (
       <div className="w-5/6 mx-auto shadow-xl">
         <table className="table-fixed w-full border-collapse border border-gray-300 ">
-          <thead>
+          <thead key="thead">
             <tr>
               <th className="w-1/12 border-collapse border border-gray-300 align-top">
                 <HeThongRap/>

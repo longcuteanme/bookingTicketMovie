@@ -4,7 +4,7 @@ const initialState={
     loading:false
 }
 
-export default (state=initialState,action)=>{
+const loadingTablePhimReducer = (state=initialState,action)=>{
     switch(action.type){
         case DISPLAY_TABLE_LOADING:{
             let newState=state
@@ -21,3 +21,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default loadingTablePhimReducer

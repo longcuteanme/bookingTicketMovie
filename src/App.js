@@ -27,14 +27,14 @@ function App() {
         <TrangNguoiDung path='/DatVe/:id' Component={DatVe}/>
         <TrangNguoiDung path='/TaiKhoan' exact Component={TaiKhoan}/>
         <Route path='/Login' exact component={LoginRegister}/>
-        {menuList.map((item)=>{
+        {menuList.map((item,index)=>{
           if(item.children){
-            return item.children.map((item2)=>{
-              return <TrangQuanTri path={`/QuanTri${item.path}${item2.path}`} exact Component={item2.Component} history={history}/>
+            return item.children.map((item2,index2)=>{
+              return <TrangQuanTri path={`/QuanTri${item.path}${item2.path}`} exact Component={item2.Component} history={history} key={index2}/>
             })
           }
           else{
-            return <TrangQuanTri path={`/QuanTri${item.path}`} exact Component={item.Component} history={history}/>
+            return <TrangQuanTri path={`/QuanTri${item.path}`} exact Component={item.Component} history={history} key={index}/>
           }
         })}
         <TrangNguoiDung path='*' Component={PageNotFound}/>

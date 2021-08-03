@@ -4,7 +4,7 @@ const initialState={
     loading:false
 }
 
-export default (state=initialState,action)=>{
+const loadingTableQuanTriReducer = (state=initialState,action)=>{
     switch(action.type){
         case DISPLAY_QUAN_TRI_LOADING:{
             let newState=state
@@ -21,3 +21,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default loadingTableQuanTriReducer

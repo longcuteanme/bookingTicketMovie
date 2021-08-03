@@ -2,9 +2,6 @@ import { QUAN_LY_DAT_VE } from '../utils/constants/settingSystem';
 import baseService from './baseService'
 
 class quanLyDatVeService extends baseService{
-    constructor(){
-        super();
-    }
     layDanhSachPhongVe=(id)=>{
         return this.get(`${QUAN_LY_DAT_VE}LayDanhSachPhongVe?MaLichChieu=${id}`)
     }

@@ -4,7 +4,7 @@ const initialState={
     danhSachNguoiDungQuanTri:{}
 }
 
-export default (state=initialState,action)=>{
+const quanTriNguoiDungReducer = (state=initialState,action)=>{
     switch(action.type){
         case LAY_DANH_SACH_NGUOI_DUNG_QUAN_TRI:{
             let newState=state
@@ -16,3 +16,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default quanTriNguoiDungReducer

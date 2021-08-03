@@ -37,7 +37,7 @@ class MyComponent extends Component {
     return data.map((item, index) => {
       return (
         <Option key={index} value={item?.maHeThongRap}>
-          <img className="w-5 mr-3 inline-block" src={item?.logo}></img>
+          <img className="w-5 mr-3 inline-block" src={item?.logo} alt="logo"></img>
           {item?.tenHeThongRap}
         </Option>
       );

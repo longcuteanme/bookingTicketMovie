@@ -6,7 +6,7 @@ import {
   USER_INFO,
 } from "../../utils/constants/settingSystem";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CHANGE_LOCALE } from "../../redux/constants/totalConstants";
 
@@ -22,21 +22,21 @@ const { Option } = Select;
 function MyComponent(props) {
   const { t, i18n } = useTranslation();
   const value = useSelector((state) => state.localeReducer.value);
-  const dispatch  = useDispatch();
-  const handleChange = async(value) => {
+  const dispatch = useDispatch();
+  const handleChange = async (value) => {
     await i18n.changeLanguage(value);
     await dispatch({
-      type:CHANGE_LOCALE,
-      payload:{
-        value:value
-      }
-    })
+      type: CHANGE_LOCALE,
+      payload: {
+        value: value,
+      },
+    });
   };
   const menu = (
     <Menu>
       <Menu.Item className="bg-white hover:bg-gray-400">
         <Link className="text-black " onClick={scrollToTop} to="/TaiKhoan">
-        {t("Account Info")}
+          {t("Account Info")}
         </Link>
       </Menu.Item>
       {JSON.parse(localStorage.getItem(USER_INFO))?.maLoaiNguoiDung ===
@@ -57,10 +57,10 @@ function MyComponent(props) {
       <Menu.Item className="bg-white hover:bg-gray-400">
         <Link
           className=" text-black "
-          onClick={scrollToTop}
           to="/"
           onClick={() => {
             localStorage.clear();
+            scrollToTop();
           }}
         >
           {t("Sign out")}
@@ -93,13 +93,12 @@ function MyComponent(props) {
         </Link>
       )}
       <div className="inline-block">
-      <Select value={value} style={{ width: 100 }} onChange={handleChange}>
-        <Option value="en">English</Option>
-        <Option value="vi">Tiếng việt</Option>
-        <Option value="chi">中国人</Option>
-      </Select>
+        <Select value={value} style={{ width: 100 }} onChange={handleChange}>
+          <Option value="en">English</Option>
+          <Option value="vi">Tiếng việt</Option>
+          <Option value="chi">中国人</Option>
+        </Select>
       </div>
-      
     </div>
   );
 }

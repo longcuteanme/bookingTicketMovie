@@ -5,7 +5,7 @@ const initialState={
     chosenBannerVideo:'',
 }
 
-export default (state=initialState,action)=>{
+const danhSachBannerReducer = (state=initialState,action)=>{
     switch(action.type){
         
         case LAY_DANH_SACH_BANNER:{
@@ -19,3 +19,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default danhSachBannerReducer

@@ -5,7 +5,7 @@ const initialState={
     danhSachGhe:[],
 }
 
-export default (state=initialState,action)=>{
+const danhSachPhongVeReducer = (state=initialState,action)=>{
     switch(action.type){
         case LAY_DANH_SACH_PHONG_VE:{
             let newState=state
@@ -19,3 +19,4 @@ export default (state=initialState,action)=>{
         }
     }
 }
+export default danhSachPhongVeReducer

@@ -39,7 +39,6 @@ class CumRapTheoHeThong extends Component {
                 </h3>
               </div>
 
-              {/* <p className="text-red-600 font-light">[Chi Tiết]</p> */}
             </div>
           );
         })}

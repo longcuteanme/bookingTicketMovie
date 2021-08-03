@@ -21,7 +21,9 @@ export default class TrangQuanTri extends Component {
 
   render() {
     const { Component, ...restProps } = this.props;
-    if (JSON.parse(localStorage.getItem(USER_INFO))?.maLoaiNguoiDung === "QuanTri") {
+    if (
+      JSON.parse(localStorage.getItem(USER_INFO))?.maLoaiNguoiDung === "QuanTri"
+    ) {
       return (
         <Layout className="w-screen h-auto" style={{ minHeight: "100vh" }}>
           <MenuList collapsed={this.state.collapsed} />
@@ -31,28 +33,30 @@ export default class TrangQuanTri extends Component {
               style={{ padding: "0px 10px" }}
             >
               <table className="w-full table-fixed">
-                <tr>
-                  <th className="w-1/12 text-left">
-                    {React.createElement(
-                      this.state.collapsed
-                        ? MenuUnfoldOutlined
-                        : MenuFoldOutlined,
-                      {
-                        className: "trigger",
-                        onClick: this.toggle,
-                        style: {
-                          color: "white",
-                          fontSize: "30px",
-                          marginLeft: "10px",
-                        },
-                      }
-                    )}
-                  </th>
-                  <th className="w-8/12"></th>
-                  <th className="3/12">
-                    <UserButton />
-                  </th>
-                </tr>
+                <tbody key="tbody">
+                  <tr>
+                    <th className="w-1/12 text-left">
+                      {React.createElement(
+                        this.state.collapsed
+                          ? MenuUnfoldOutlined
+                          : MenuFoldOutlined,
+                        {
+                          className: "trigger",
+                          onClick: this.toggle,
+                          style: {
+                            color: "white",
+                            fontSize: "30px",
+                            marginLeft: "10px",
+                          },
+                        }
+                      )}
+                    </th>
+                    <th className="w-8/12"></th>
+                    <th className="3/12">
+                      <UserButton />
+                    </th>
+                  </tr>
+                </tbody>
               </table>
             </Header>
             <Content
