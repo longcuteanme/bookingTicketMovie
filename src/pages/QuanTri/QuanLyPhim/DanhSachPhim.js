@@ -1,4 +1,4 @@
-import React, { Component,Suspense } from "react";
+import React, { Component, Suspense } from "react";
 import ConfigTable from "../../../components/table/ConfigTable";
 import { connect } from "react-redux";
 import {
@@ -8,21 +8,21 @@ import {
   THEM_PHIM_SAGA,
   XOA_PHIM_SAGA,
 } from "../../../redux/constants/totalConstants";
-import { Tag, Form, Input, Rate, DatePicker, Switch, Upload } from "antd";
-import rules from "../../../utils/rules/rules";
-import {
-  PlayCircleOutlined,
-  PlusOutlined,
-  VideoCameraAddOutlined,
-} from "@ant-design/icons";
 import moment from "moment";
-import TextArea from "antd/lib/input/TextArea";
 import Modal from "antd/lib/modal/Modal";
-import LoadingBackground from "../../../assets/images/LoadingBackground.jpg";
 import ModalTaoLichChieu from "./ModalTaoLichChieu";
 import { Translation } from "react-i18next";
+import columns from "./ColumnsConfig";
+import { PlusOutlined } from "@ant-design/icons";
+import { Form, Input, Rate, DatePicker, Switch, Upload } from "antd";
+import rules from "../../../utils/rules/rules";
 
-const editMessage = [<Translation>{(t) => <>{t("Add Film")}</>}</Translation>, <Translation>{(t) => <>{t("Edit Film")}</>}</Translation>];
+const { TextArea } = Input;
+
+const editMessage = [
+  <Translation>{(t) => <>{t("Add Film")}</>}</Translation>,
+  <Translation>{(t) => <>{t("Edit Film")}</>}</Translation>,
+];
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -197,120 +197,11 @@ class MyComponent extends Component {
     const uploadButton = (
       <div>
         <PlusOutlined />
-        <div style={{ marginTop: 8 }}>{<Translation>{(t) => <>{t("Upload")}</>}</Translation>}</div>
+        <div style={{ marginTop: 8 }}>
+          {<Translation>{(t) => <>{t("Upload")}</>}</Translation>}
+        </div>
       </div>
     );
-    const columns = [
-      {
-        title: <Translation>{(t) => <>{t("Create showtime")}</>}</Translation>,
-        width: "100px",
-        align: "center",
-        fixed: "left",
-        render: (record) => {
-          return (
-            <VideoCameraAddOutlined
-              className="hover:text-blue-400"
-              onClick={() => {
-                this.onRow(record);
-              }}
-              style={{ fontSize: "30px", color: "gray" }}
-            />
-          );
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Movie's name")}</>}</Translation>,
-        width: "100px",
-        align: "center",
-        fixed: "left",
-        render: (record) => {
-          return (
-            <div>
-              <p>{record.tenPhim}</p>
-              {record?.hot ? <Tag color="#cd201f">HOT</Tag> : <></>}
-            </div>
-          );
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Image")}</>}</Translation>,
-        dataIndex: "hinhAnh",
-        width: "120px",
-        align: "center",
-        render: (item) => {
-          return (
-            <div
-              className="w-full h-32 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${LoadingBackground})`,
-                boxShadow: "0px 0px 3px gray",
-              }}
-            >
-              <div
-                className="h-full w-full bg-cover bg-center"
-                style={{ backgroundImage: `url(${item})` }}
-              ></div>
-            </div>
-          );
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Aliases")}</>}</Translation>,
-        dataIndex: "biDanh",
-        width: "100px",
-        align: "center",
-      },
-      {
-        title: <Translation>{(t) => <>{t("Trailer")}</>}</Translation>,
-        dataIndex: "trailer",
-        width: "80px",
-        align: "center",
-        render: (item) => {
-          return (
-            <PlayCircleOutlined
-              style={{ fontSize: "30px", color: "gray" }}
-              onClick={() => {
-                this.handleTrailer(item);
-              }}
-            />
-          );
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Status")}</>}</Translation>,
-        dataIndex: "dangChieu",
-        width: "150px",
-        align: "center",
-        render: (item) => {
-          if (item) return <Tag color="#2db7f5"><Translation>{(t) => <>{t("NOW SHOWING")}</>}</Translation></Tag>;
-          else return <Tag color="#f50"><Translation>{(t) => <>{t("COMING SOON")}</>}</Translation></Tag>;
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Show date")}</>}</Translation>,
-        dataIndex: "ngayKhoiChieu",
-        width: "150px",
-        align: "center",
-        render: (item) => {
-          return moment(item).format("DD-MM-YYYY");
-        },
-      },
-      {
-        title: <Translation>{(t) => <>{t("Description")}</>}</Translation>,
-        dataIndex: "moTa",
-        width: "500px",
-        align: "center",
-      },
-      {
-        title: <Translation>{(t) => <>{t("Evaluate")}</>}</Translation>,
-        dataIndex: "danhGia",
-        width: "200px",
-        align: "center",
-        render: (item) => {
-          return <Rate disabled defaultValue={item / 2} />;
-        },
-      },
-    ];
     const formAdd = (
       <>
         <Form.Item

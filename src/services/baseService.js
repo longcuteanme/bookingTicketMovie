@@ -2,7 +2,6 @@ import axios from 'axios'
 import { DOMAIN, TOKEN} from '../utils/constants/settingSystem.js';
 
 export default class baseService {
-    constructor(){}
     get=(url)=>{
         return axios({
             url:`${DOMAIN}${url}`,
